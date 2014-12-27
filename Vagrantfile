@@ -18,6 +18,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	config.vm.provision "shell", path: "provision.sh"
 
+  config.hostmanager.enabled = true
+  config.hostmanager.manage_host = true
+  config.hostmanager.ignore_private_ip = false
+  config.hostmanager.include_offline = true
+  config.vm.define 'test' do |node|
+    node.vm.hostname = 'shp-holz'
+    node.vm.network :private_network, ip: '192.168.42.42'
+    node.hostmanager.aliases = %w(craft.dev craft)
+  end
+
   # Fix tty Error
   config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
 
