@@ -48,13 +48,14 @@ rm /var/www/html/.htaccess
 mv /var/www/html/htaccess /var/www/html/.htaccess
 rm -r craft && rm -r public && rm -r /var/www/html/web.config
 
-# Enable Mcrypt
+# AllowOverride
+sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
+
+# Install Mcrypt
 apt-get -y install mcrypt php5-mcrypt
-php5enmod mcrypt
 
 # Install ImageMagick
 apt-get -y install imagemagick php5-imagick
-php5enmod imagemagick
 
 # Restart Services
 service apache2 restart
