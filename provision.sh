@@ -5,7 +5,6 @@ xdebug_config_file="/etc/php5/mods-available/xdebug.ini"
 mysql_config_file="/etc/mysql/my.cnf"
 
 IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
-sed -i "s/^${IPADDR}.*//" hosts
 echo $IPADDR ubuntu.localhost >> /etc/hosts			# Just to quiet down some error messages
 
 # Update the server
@@ -32,6 +31,7 @@ apt-get -y install mysql-client mysql-server
 sed -i "s/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" ${mysql_config_file}
 
 # Create craft database
+echo "drop database craft" | mysql -u root --password=root
 echo "create database craft" | mysql -u root --password=root
 
 # Allow root access from any host
@@ -39,11 +39,13 @@ echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT 
 echo "GRANT PROXY ON ''@'' TO 'root'@'%' WITH GRANT OPTION" | mysql -u root --password=root
 
 # Install latest Craft
-wget http://buildwithcraft.com/latest.tar.gz?accept_license=yes
+wget -O latest.tar.gz http://buildwithcraft.com/latest.tar.gz?accept_license=yes
 tar -zxf latest.tar.gz
 rm latest.tar.gz
-mv latest/craft /var/www && mv latest/public/. /var/www/html
-rm -r latest
+rsync -r craft /var/www && rsync -a public/ /var/www/html/
+rm /var/www/html/.htaccess
+mv /var/www/html/htaccess /var/www/html/.htaccess
+rm -r craft && rm -r public && rm -r /var/www/html/index.html
 
 # Restart Services
 service apache2 restart

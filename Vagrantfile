@@ -18,6 +18,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
 	config.vm.provision "shell", path: "provision.sh"
 
+  # Fix tty Error
+  config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+
   # config.vm.provider "virtualbox" do |vb|
   #   # Don't boot with headless mode
   #   vb.gui = true
