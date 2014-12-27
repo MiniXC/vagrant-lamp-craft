@@ -31,9 +31,19 @@ apt-get -y install mysql-client mysql-server
 
 sed -i "s/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" ${mysql_config_file}
 
+# Create craft database
+echo "create database craft" | mysql -u root --password=root
+
 # Allow root access from any host
 echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION" | mysql -u root --password=root
 echo "GRANT PROXY ON ''@'' TO 'root'@'%' WITH GRANT OPTION" | mysql -u root --password=root
+
+# Install latest Craft
+wget http://buildwithcraft.com/latest.tar.gz?accept_license=yes
+tar -zxf latest.tar.gz
+rm latest.tar.gz
+mv latest/craft /var/www && mv latest/public/. /var/www/html
+rm -r latest
 
 # Restart Services
 service apache2 restart
