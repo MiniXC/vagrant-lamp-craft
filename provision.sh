@@ -50,6 +50,7 @@ rm -r craft && rm -r public && rm -r /var/www/html/web.config
 
 # AllowOverride
 sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
+a2enmod rewrite
 
 # Install Mcrypt
 apt-get -y install mcrypt php5-mcrypt
