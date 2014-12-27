@@ -39,13 +39,22 @@ echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT 
 echo "GRANT PROXY ON ''@'' TO 'root'@'%' WITH GRANT OPTION" | mysql -u root --password=root
 
 # Install latest Craft
-wget -O latest.tar.gz http://buildwithcraft.com/latest.tar.gz?accept_license=yes
+wget -qO latest.tar.gz http://buildwithcraft.com/latest.tar.gz?accept_license=yes
 tar -zxf latest.tar.gz
 rm latest.tar.gz
+rm -r craft/config && rm -r craft/plugins && rm -r craft/templates
 rsync -r craft /var/www && rsync -a public/ /var/www/html/
 rm /var/www/html/.htaccess
 mv /var/www/html/htaccess /var/www/html/.htaccess
-rm -r craft && rm -r public && rm -r /var/www/html/index.html
+rm -r craft && rm -r public && rm -r /var/www/html/web.config
+
+# Enable Mcrypt
+apt-get -y install mcrypt php5-mcrypt
+php5enmod mcrypt
+
+# Install ImageMagick
+apt-get -y install imagemagick php5-imagick
+php5enmod imagemagick
 
 # Restart Services
 service apache2 restart
