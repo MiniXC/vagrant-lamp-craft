@@ -1,6 +1,7 @@
 Vagrant LAMP with Craft CMS
 ===========================
-Based on [mattandersen/vagrant-lamp](https://github.com/mattandersen/vagrant-lamp)
+Based on [mattandersen/vagrant-lamp](https://github.com/mattandersen/vagrant-lamp).
+
 This project is aimed to be a starting point for developing a Craft CMS site that "just works" on all contributors machines.
 
 The shared folders of this vagrant setup are
