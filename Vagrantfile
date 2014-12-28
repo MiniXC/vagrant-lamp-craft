@@ -17,6 +17,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.synced_folder "craft/plugins", "/var/www/craft/plugins"
   config.vm.synced_folder "craft/templates", "/var/www/craft/templates"
   config.vm.synced_folder "craft/config", "/var/www/craft/config"
+  config.vm.synced_folder "mysql", "/home/vagrant/mysql"
+  config.vm.synced_folder "scripts", "/home/vagrant/scripts"
 
 	config.vm.provision "shell", path: "provision.sh"
 

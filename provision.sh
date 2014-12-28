@@ -3,10 +3,12 @@
 php_config_file="/etc/php5/apache2/php.ini"
 xdebug_config_file="/etc/php5/mods-available/xdebug.ini"
 mysql_config_file="/etc/mysql/my.cnf"
-mysql_pass="root"
-mysql_db="craft"
 craft_version="2.3"
 craft_build="2621"
+export mysql_db="craft"
+export mysql_pass="root"
+
+mkdir scripts
 
 IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
 echo $IPADDR ubuntu.localhost >> /etc/hosts			# Just to quiet down some error messages
@@ -33,6 +35,11 @@ echo "mysql-server mysql-server/root_password_again password root" | sudo debcon
 apt-get -y install mysql-client mysql-server
 
 sed -i "s/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" ${mysql_config_file}
+
+# Read/Dump DB
+mkdir mysql
+/bin/bash scripts/mysql-restore.sh
+/bin/bash scripts/mysql-dump.sh
 
 # Create craft database
 echo "drop database ${mysql_db}" | mysql -u root --password=${mysql_pass}
