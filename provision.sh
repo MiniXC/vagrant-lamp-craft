@@ -43,14 +43,16 @@ echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT 
 echo "GRANT PROXY ON ''@'' TO 'root'@'%' WITH GRANT OPTION" | mysql -u root --password=${mysql_pass}
 
 # Install latest Craft
-wget -qO craft.tar.gz http://download.buildwithcraft.com/craft/${craft_version}/${craft_version}.${craft_build}/Craft-${craft_version}.${craft_build}.tar.gz
+wget -qO craft.tar.gz http://download.buildwithcraft.com/craft/${craft_version}/${craft_version}.${craft_build}/Craft-${craft_version}.${craft_build}.tar.gz && echo "Downloading ${craft_version}/${craft_version}.${craft_build}/Craft-${craft_version}.${craft_build}.tar.gz..."
+rm /var/www/html/.htaccess
 tar -zxf craft.tar.gz
-rm latest.tar.gz
+rm craft.tar.gz
 rm -r craft/config && rm -r craft/plugins && rm -r craft/templates
 rsync -r craft /var/www && rsync -a public/ /var/www/html/
 rm /var/www/html/.htaccess
 mv /var/www/html/htaccess /var/www/html/.htaccess
 rm -r craft && rm -r public && rm -r /var/www/html/web.config && rm -r /var/www/html/index.html
+echo "Craft installation complete..."
 
 # AllowOverride
 sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
