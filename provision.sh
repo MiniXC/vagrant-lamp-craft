@@ -35,7 +35,7 @@ apt-get -y install mysql-client mysql-server
 sed -i "s/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" ${mysql_config_file}
 
 # Create craft database
-echo "drop database ${mysql_db}" | mysql -u root --password=${mysql_pass} > /dev/null
+echo "drop database ${mysql_db}" | mysql -u root --password=${mysql_pass}
 echo "create database ${mysql_db}" | mysql -u root --password=${mysql_pass}
 
 # Allow root access from any host
@@ -49,11 +49,11 @@ tar -zxf craft.tar.gz
 rm craft.tar.gz
 rm -r craft/config && rm -r craft/plugins && rm -r craft/templates
 rsync -r craft /var/www && rsync -a public/ /var/www/html/
-rm /var/www/html/.htaccess > /dev/null
+rm /var/www/html/.htaccess
 mv /var/www/html/htaccess /var/www/html/.htaccess
 rm -r craft && rm -r public && rm -r /var/www/html/web.config && rm -r /var/www/html/index.html > /dev/null
 chmod 777 /var/www/craft/storage
-echo "Craft installation complete..."
+echo "Craft Installation complete..."
 
 # AllowOverride
 sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
@@ -61,6 +61,7 @@ a2enmod rewrite
 
 # Install Mcrypt
 apt-get -y install mcrypt php5-mcrypt
+php5enmod mcrypt
 
 # Install ImageMagick
 apt-get -y install imagemagick php5-imagick
