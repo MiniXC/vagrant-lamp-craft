@@ -38,8 +38,8 @@ sed -i "s/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" ${mysql_config_f
 
 # Read/Dump DB
 mkdir mysql
-/bin/bash scripts/mysql-restore.sh
-/bin/bash scripts/mysql-dump.sh
+/bin/bash scripts/mysql-restore.sh $mysql_db $mysql_pass
+/bin/bash scripts/mysql-dump.sh $mysql_db $mysql_pass
 
 # Create craft database
 echo "drop database ${mysql_db}" | mysql -u root --password=${mysql_pass}

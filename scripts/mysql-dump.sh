@@ -1,3 +1,3 @@
 #!/bin/bash
 
-mysqldump -u root -p$mysql_pass $mysql_db > /home/vagrant/mysql/dump.sql && echo "Backing up MySQL Database to dump.sql..."
+mysqldump -u root -p$2 $1 > /home/vagrant/mysql/dump.sql && echo "Backing up MySQL Database to dump.sql..."
