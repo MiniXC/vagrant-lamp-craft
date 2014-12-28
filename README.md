@@ -25,7 +25,7 @@ Usage
 * clone it to your machine
 * vagrant up
 * add "192.168.42.42 craft.dev" to your /etc/hosts file
-* browse to craft.dev/admin
+* browse to craft.dev/admin and setup craft
 * start coding!
 
 Technical Details
