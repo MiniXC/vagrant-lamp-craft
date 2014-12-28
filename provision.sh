@@ -35,7 +35,7 @@ apt-get -y install mysql-client mysql-server
 sed -i "s/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" ${mysql_config_file}
 
 # Create craft database
-echo "drop database ${mysql_db}" | mysql -u root --password=${mysql_pass}
+echo "drop database ${mysql_db}" | mysql -u root --password=${mysql_pass} > /dev/null
 echo "create database ${mysql_db}" | mysql -u root --password=${mysql_pass}
 
 # Allow root access from any host
@@ -49,9 +49,10 @@ tar -zxf craft.tar.gz
 rm craft.tar.gz
 rm -r craft/config && rm -r craft/plugins && rm -r craft/templates
 rsync -r craft /var/www && rsync -a public/ /var/www/html/
-rm /var/www/html/.htaccess
+rm /var/www/html/.htaccess > /dev/null
 mv /var/www/html/htaccess /var/www/html/.htaccess
-rm -r craft && rm -r public && rm -r /var/www/html/web.config && rm -r /var/www/html/index.html
+rm -r craft && rm -r public && rm -r /var/www/html/web.config && rm -r /var/www/html/index.html > /dev/null
+chmod 777 /var/www/craft/storage
 echo "Craft installation complete..."
 
 # AllowOverride
