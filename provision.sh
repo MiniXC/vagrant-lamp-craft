@@ -3,6 +3,10 @@
 php_config_file="/etc/php5/apache2/php.ini"
 xdebug_config_file="/etc/php5/mods-available/xdebug.ini"
 mysql_config_file="/etc/mysql/my.cnf"
+mysql_pass="root"
+mysql_db="craft"
+craft_version="2.3"
+craft_build="2621"
 
 IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
 echo $IPADDR ubuntu.localhost >> /etc/hosts			# Just to quiet down some error messages
@@ -24,29 +28,29 @@ echo "xdebug.remote_enable=On" >> ${xdebug_config_file}
 echo 'xdebug.remote_connect_back=On' >> ${xdebug_config_file}
 
 # Install MySQL
-echo "mysql-server mysql-server/root_password password root" | sudo debconf-set-selections
+echo "mysql-server mysql-server/root_password password ${mysql_pass}" | sudo debconf-set-selections
 echo "mysql-server mysql-server/root_password_again password root" | sudo debconf-set-selections
 apt-get -y install mysql-client mysql-server
 
 sed -i "s/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" ${mysql_config_file}
 
 # Create craft database
-echo "drop database craft" | mysql -u root --password=root
-echo "create database craft" | mysql -u root --password=root
+echo "drop database ${mysql_db}" | mysql -u root --password=${mysql_pass}
+echo "create database ${mysql_db}" | mysql -u root --password=${mysql_pass}
 
 # Allow root access from any host
-echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION" | mysql -u root --password=root
-echo "GRANT PROXY ON ''@'' TO 'root'@'%' WITH GRANT OPTION" | mysql -u root --password=root
+echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION" | mysql -u root --password=${mysql_pass}
+echo "GRANT PROXY ON ''@'' TO 'root'@'%' WITH GRANT OPTION" | mysql -u root --password=${mysql_pass}
 
 # Install latest Craft
-wget -qO latest.tar.gz http://buildwithcraft.com/latest.tar.gz?accept_license=yes
-tar -zxf latest.tar.gz
+wget -qO craft.tar.gz http://download.buildwithcraft.com/craft/${craft_version}/${craft_version}.${craft_build}/Craft-${craft_version}.${craft_build}.tar.gz
+tar -zxf craft.tar.gz
 rm latest.tar.gz
 rm -r craft/config && rm -r craft/plugins && rm -r craft/templates
 rsync -r craft /var/www && rsync -a public/ /var/www/html/
 rm /var/www/html/.htaccess
 mv /var/www/html/htaccess /var/www/html/.htaccess
-rm -r craft && rm -r public && rm -r /var/www/html/web.config
+rm -r craft && rm -r public && rm -r /var/www/html/web.config && rm -r /var/www/html/index.html
 
 # AllowOverride
 sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
