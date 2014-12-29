@@ -1,0 +1,4 @@
+#!/bin/bash
+
+echo "/bin/bash scripts/mysql-dump.sh" | vagrant ssh
+git add mysql/dump.sql
