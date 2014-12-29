@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo "/bin/bash scripts/mysql-restore.sh" | vagrant ssh
