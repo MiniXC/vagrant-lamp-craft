@@ -1,4 +1,7 @@
 #!/bin/bash
 
-echo "/bin/bash scripts/mysql-dump.sh" | vagrant ssh
+db="craft"
+pass="root"
+
+echo "/bin/bash scripts/mysql-dump.sh $db $pass" | vagrant ssh
 git add mysql/dump.sql

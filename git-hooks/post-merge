@@ -1,3 +1,6 @@
 #!/bin/bash
 
-echo "/bin/bash scripts/mysql-restore.sh" | vagrant ssh
+db="craft"
+pass="root"
+
+echo "/bin/bash scripts/mysql-restore.sh $db $pass" | vagrant ssh
