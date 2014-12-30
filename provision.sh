@@ -5,10 +5,15 @@ xdebug_config_file="/etc/php5/mods-available/xdebug.ini"
 mysql_config_file="/etc/mysql/my.cnf"
 craft_version="2.3"
 craft_build="2621"
-export mysql_db="craft"
-export mysql_pass="root"
+mysql_db="craft"
+mysql_pass="root"
 
-mkdir scripts
+#Set Locale
+export LANGUAGE=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+locale-gen en_US.UTF-8
+dpkg-reconfigure locales
 
 IPADDR=$(/sbin/ifconfig eth0 | awk '/inet / { print $2 }' | sed 's/addr://')
 echo $IPADDR ubuntu.localhost >> /etc/hosts			# Just to quiet down some error messages
@@ -45,7 +50,6 @@ echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT 
 echo "GRANT PROXY ON ''@'' TO 'root'@'%' WITH GRANT OPTION" | mysql -u root --password=${mysql_pass}
 
 # Restore Database from dump
-mkdir mysql
 /bin/bash scripts/mysql-restore.sh $mysql_db $mysql_pass
 
 # Download and extract Craft
@@ -58,9 +62,9 @@ echo "Removing old files..."
 rm /var/www/html/.htaccess
 rm -r craft/config && rm -r craft/plugins && rm -r craft/templates
 rsync -r --ignore-existing craft /var/www && rsync -a public/ /var/www/html/
-rm /var/www/html/.htaccess
+rm /var/www/html/.htaccess 2> /dev/null
 mv /var/www/html/htaccess /var/www/html/.htaccess
-rm -r craft && rm -r public && rm -r /var/www/html/web.config && rm -r /var/www/html/index.html
+rm -r craft && rm -r public && rm -r /var/www/html/web.config && rm -r /var/www/html/index.html 2> /dev/null
 #Give craft writing permission for the storage folder
 chmod 777 /var/www/craft/storage
 
