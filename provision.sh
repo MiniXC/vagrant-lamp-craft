@@ -39,7 +39,6 @@ sed -i "s/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" ${mysql_config_f
 # Read/Dump DB
 mkdir mysql
 /bin/bash scripts/mysql-restore.sh $mysql_db $mysql_pass
-/bin/bash scripts/mysql-dump.sh $mysql_db $mysql_pass
 
 # Create craft database
 echo "drop database ${mysql_db}" | mysql -u root --password=${mysql_pass}
@@ -55,10 +54,10 @@ rm /var/www/html/.htaccess
 tar -zxf craft.tar.gz
 rm craft.tar.gz
 rm -r craft/config && rm -r craft/plugins && rm -r craft/templates
-rsync -r craft /var/www && rsync -a public/ /var/www/html/
+rsync -r --ignore-existing craft /var/www && rsync -a public/ /var/www/html/
 rm /var/www/html/.htaccess
 mv /var/www/html/htaccess /var/www/html/.htaccess
-rm -r craft && rm -r public && rm -r /var/www/html/web.config && rm -r /var/www/html/index.html > /dev/null
+rm -r craft && rm -r public && rm -r /var/www/html/web.config && rm -r /var/www/html/index.html
 chmod 777 /var/www/craft/storage
 echo "Craft Installation complete..."
 
