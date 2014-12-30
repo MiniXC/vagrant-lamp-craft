@@ -24,9 +24,10 @@ Usage
 ### Setting up a new Project
 * fork this repository
 * clone it to your machine
+* copy all files from git-hooks to .git/hooks
 * vagrant up
-* add "192.168.42.42 craft.dev" to your /etc/hosts file
-* browse to craft.dev/admin and setup craft
+* add "127.0.0.1 craft.dev" to your /etc/hosts file
+* browse to craft.dev:4242/admin and setup craft (+ activate craft pro)
 * start coding!
 
 Technical Details
@@ -35,4 +36,4 @@ Technical Details
 * Apache 2
 * PHP 5.5
 * MySQL 5.5
-* Craft (latest)
+* Craft 2.3
