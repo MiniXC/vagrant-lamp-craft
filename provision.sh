@@ -36,10 +36,6 @@ apt-get -y install mysql-client mysql-server
 
 sed -i "s/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" ${mysql_config_file}
 
-# Read/Dump DB
-mkdir mysql
-/bin/bash scripts/mysql-restore.sh $mysql_db $mysql_pass
-
 # Create craft database
 echo "drop database ${mysql_db}" | mysql -u root --password=${mysql_pass}
 echo "create database ${mysql_db}" | mysql -u root --password=${mysql_pass}
@@ -48,16 +44,23 @@ echo "create database ${mysql_db}" | mysql -u root --password=${mysql_pass}
 echo "GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'root' WITH GRANT OPTION" | mysql -u root --password=${mysql_pass}
 echo "GRANT PROXY ON ''@'' TO 'root'@'%' WITH GRANT OPTION" | mysql -u root --password=${mysql_pass}
 
-# Install latest Craft
+# Restore Database from dump
+mkdir mysql
+/bin/bash scripts/mysql-restore.sh $mysql_db $mysql_pass
+
+# Download and extract Craft
 wget -qO craft.tar.gz http://download.buildwithcraft.com/craft/${craft_version}/${craft_version}.${craft_build}/Craft-${craft_version}.${craft_build}.tar.gz && echo "Downloading ${craft_version}/${craft_version}.${craft_build}/Craft-${craft_version}.${craft_build}.tar.gz..."
-rm /var/www/html/.htaccess
 tar -zxf craft.tar.gz
 rm craft.tar.gz
+
+# Remove old
+rm /var/www/html/.htaccess
 rm -r craft/config && rm -r craft/plugins && rm -r craft/templates
 rsync -r --ignore-existing craft /var/www && rsync -a public/ /var/www/html/
 rm /var/www/html/.htaccess
 mv /var/www/html/htaccess /var/www/html/.htaccess
 rm -r craft && rm -r public && rm -r /var/www/html/web.config && rm -r /var/www/html/index.html
+#Give craft writing permission for the storage folder
 chmod 777 /var/www/craft/storage
 echo "Craft Installation complete..."
 
