@@ -9,11 +9,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.hostname = "lamp-craft"
 
-  config.vm.network :private_network, ip: "192.168.42.42"
-
 	# Forward ports to Apache and MySQL
-  config.vm.network "forwarded_port", guest: 80, host: 4242
+  config.vm.network "forwarded_port", guest: 80, host: 8080
   config.vm.network "forwarded_port", guest: 3306, host: 8484
+
+  config.vm.network "private_network", ip: "192.168.42.42"
 
 	config.vm.synced_folder "public", "/var/www/html"
   config.vm.synced_folder "craft/plugins", "/var/www/craft/plugins"
