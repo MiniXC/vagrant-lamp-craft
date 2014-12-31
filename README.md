@@ -9,15 +9,15 @@ This makes for a much cleaner install, and provides just the directories you nee
 
 Synced folders
 --------------
-| Usage         | Guest (Vagrant Machine) | Host (Repository)  |
-| ------------  | --------------- | ----- |
-| web root      | public          | public |
-| [config files](http://buildwithcraft.com/docs/folder-structure#craft-config) | /var/www/craft/config    |  craft/config |
-| [plugins](http://buildwithcraft.com/docs/folder-structure#craft-plugins) | /var/www/craft/plugins | craft/plugins |
-| [custom logo](http://buildwithcraft.com/docs/folder-structure#craft-storage) | /var/www/craft/storage/logo | craft/logo |
-| [templates](http://buildwithcraft.com/docs/templating-overview) | /var/www/craft/templates | craft/templates
-| database backup | /home/vagrant/mysql | mysql |
-| dump and restore scripts | /home/vagrant/scripts | scripts |
+|                                  Usage                                       | Guest (Vagrant Machine)     | Host (Repository)  |
+| ---------------------------------------------------------------------------- | --------------------------- | ------------------ |
+| web root                                                                     | public                      | public             |
+| [config files](http://buildwithcraft.com/docs/folder-structure#craft-config) | /var/www/craft/config       | craft/config       |
+| [plugins](http://buildwithcraft.com/docs/folder-structure#craft-plugins)     | /var/www/craft/plugins      | craft/plugins      |
+| [custom logo](http://buildwithcraft.com/docs/folder-structure#craft-storage) | /var/www/craft/storage/logo | craft/logo         |
+| [templates](http://buildwithcraft.com/docs/templating-overview)              | /var/www/craft/templates    | craft/templates    |
+| database backup                                                              | /home/vagrant/mysql         | mysql              |
+| dump and restore scripts                                                     | /home/vagrant/scripts       | scripts            |
 
 Requirements
 ------------
