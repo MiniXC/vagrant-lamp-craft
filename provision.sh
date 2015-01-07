@@ -50,7 +50,7 @@ sed -i "s/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" ${mysql_config_f
 
 # Create craft database
 echo "Creating database with name $mysql_db..."
-echo "create database ${mysql_db}" | mysql -u root --password=${mysql_pass}
+echo "create database ${mysql_db}" | mysql -u root --password=${mysql_pass} &> /dev/null
 
 # Allow root access from any host
 echo "Granting access to database..."
