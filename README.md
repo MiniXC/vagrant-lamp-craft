@@ -43,7 +43,13 @@ To use this project as a starting point for your next Craft CMS project using a 
 This will dump your database to a file and add it to git whenever you commit. The database will be restored from this file `post-merge`, meaning whenever you download from your repository.
 
 ### Accessing your Server
-Add `192.168.42.42 craft.dev` to your `/etc/hosts` file to access your server on your host machine, just by pointing you browser to `craft.dev`.
+Add `192.168.42.42 craft.dev` to your hosts file to access your server on your host machine, just by pointing you browser to `craft.dev`.
+
+Troubleshooting
+---------------
+If `192.168.42.42` conflicts with your ip address scheme, you have several options.
+* change the ip your `Vagrantfile`
+* add `127.0.0.1 craft.dev` to your hosts file instead
 
 ### Changing default Values
 If you want to change a variable, make sure to do so in all the right places of this project.
