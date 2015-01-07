@@ -45,10 +45,9 @@ This will dump your database to a file and add it to git whenever you commit. Th
 ### Accessing your Server
 Add `192.168.42.42 craft.dev` to your hosts file to access your server on your host machine, just by pointing you browser to `craft.dev`.
 
-Troubleshooting
----------------
+#### Troubleshooting
 If `192.168.42.42` conflicts with your ip address scheme, you have several options.
-* change the ip your `Vagrantfile`
+* manually change the ip in your `Vagrantfile`
 * add `127.0.0.1 craft.dev` to your hosts file instead
 
 ### Changing default Values
