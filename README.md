@@ -53,11 +53,11 @@ If `192.168.42.42` conflicts with your ip address scheme, you have several optio
 ### Changing default Values
 If you want to change a variable, make sure to do so in all the right places of this project.
 
-| Variable       | Default Value |                               Files                       |
-| -------------- | ------------- | --------------------------------------------------------- |
-| Guest IP       | 192.168.42.42 | `Vagrantfile` `/etc/hosts`                                |
-| Database Name  | craft         | `provision.sh` `/scripts/pre-commit` `scripts/post-merge` |
-| MySQL Password | root          | `provision.sh` `/scripts/pre-commit` `scripts/post-merge` |
+| Variable       | Default Value |                                          Files                                  |
+| -------------- | ------------- | ------------------------------------------------------------------------------- |
+| Guest IP       | 192.168.42.42 | `Vagrantfile` `/etc/hosts`                                                      |    
+| Database Name  | craft         | `provision.sh` `/scripts/pre-commit` `scripts/post-merge` `craft/config/db.php` |
+| MySQL Password | root          | `provision.sh` `/scripts/pre-commit` `scripts/post-merge` `craft/config/db.php` |
 
 ### Manually dumping/restoring the Database
 Do this with `vagrant ssh` on the server. Run `scripts/mysql-dump.sh` with two parameters (database and mysql password) to dump the database to `mysql/dump.sql` on your host. Do the same with `scripts/mysql-restore.sh` to resore the database from this file.
