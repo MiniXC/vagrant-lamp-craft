@@ -78,7 +78,7 @@ chmod 777 /var/www/craft/storage
 
 # AllowOverride
 sed -i "s/AllowOverride None/AllowOverride All/g" /etc/apache2/apache2.conf
-echo "Enablind module rewrite..."
+echo "Enabling module rewrite..."
 a2enmod rewrite > /dev/null
 
 # Install Mcrypt
