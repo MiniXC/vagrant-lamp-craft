@@ -11,7 +11,7 @@ Synced folders
 --------------
 |                                  Usage                                       | Guest (Vagrant Machine)     | Host (Repository)  |
 | ---------------------------------------------------------------------------- | --------------------------- | ------------------ |
-| web root                                                                     | public                      | public             |
+| web root                                                                     | /var/www/html               | public             |
 | [config files](http://buildwithcraft.com/docs/folder-structure#craft-config) | /var/www/craft/config       | craft/config       |
 | [plugins](http://buildwithcraft.com/docs/folder-structure#craft-plugins)     | /var/www/craft/plugins      | craft/plugins      |
 | [custom logo](http://buildwithcraft.com/docs/folder-structure#craft-storage) | /var/www/craft/storage/logo | craft/logo         |
